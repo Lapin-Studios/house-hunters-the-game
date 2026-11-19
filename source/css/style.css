@@ -687,3 +687,19 @@ kbd { font-family: var(--ui); background: #eef0f4; border: 1px solid #d4d7de; bo
 .share-box { background: #f4f5f9; border: 1.5px dashed var(--line); border-radius: 10px; padding: 10px 12px; font: 13px/1.5 var(--ui); white-space: pre-wrap; margin: 0 0 10px; color: var(--ink); }
 .daily-panel { border: 2px solid var(--gold); }
 .new-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); margin-left: 6px; vertical-align: 2px; }
+
+/* ---------- multiplayer mode cards ---------- */
+.mode-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mode-card { text-align: left; border: 2px solid var(--line); background: #fff; border-radius: 14px; padding: 12px 13px 10px; cursor: pointer; transition: border-color .15s, background .15s, box-shadow .15s; font: inherit; color: inherit; }
+.mode-card:hover:not(:disabled) { border-color: var(--coral); }
+.mode-card.on { border-color: var(--coral); background: var(--coral-l); box-shadow: 0 0 0 3px rgba(232, 93, 63, .15); }
+.mode-card:disabled { cursor: default; }
+.mode-card:disabled:not(.on) { opacity: .5; }
+.mode-card .mc-head { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 17px; color: var(--navy); }
+.mode-card .mc-icon { font-size: 22px; line-height: 1; }
+.mode-card .mc-check { margin-left: auto; background: var(--coral); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-family: var(--ui); }
+.mode-card ul { margin: 8px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+.mode-card li { margin: 2px 0; }
+@media (max-width: 700px) { .mode-cards { grid-template-columns: 1fr; } }
+.sync-tag { font-family: var(--ui); font-size: 11.5px; font-weight: 700; border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: 2px; background: var(--teal-l); color: #1d6b5f; }
+.sync-tag.priv { background: #eef0f5; color: var(--ink-2); }

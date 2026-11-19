@@ -199,7 +199,9 @@
     UI.meeting.stop();
     D.started = false;
     D.startTimer = setTimeout(beginOpening, UI.prefs.reducedMotion ? 100 : 1100);
-    if (multi) UI.toast(`New client! Everyone's meeting ${esc(c.shortName)}.`, "", "🔔");
+    if (multi) UI.toast(g.isCoop()
+      ? `New client! <b>🤝 Work Together:</b> your team shares every question and house pick.`
+      : `New client! <b>🥊 Rivals:</b> your questions and picks are private. Find a better home than everyone else!`, "", "🔔", 5000);
   };
 
   function renderBrief() {
@@ -219,7 +221,7 @@
     const coop = g.isCoop();
     $("#dlg-text").innerHTML = unlimited
       ? `<b>Ask anything you like</b>, or head to your computer when you're ready.`
-      : left > 0 ? `You can ask <b>${HH.plural(left, "more question")}</b>${coop ? " (shared with your team)" : ""}. Choose wisely!` : `<b>You're out of questions.</b> Time to find them a home!`;
+      : left > 0 ? `You can ask <b>${HH.plural(left, "more question")}</b>${coop ? " (shared with your team)" : g.mode !== "solo" ? " (private: rivals won't hear the answers)" : ""}. Choose wisely!` : `<b>You're out of questions.</b> Time to find them a home!`;
     $("#dlg-prog").textContent = "";
     panel.classList.remove("hidden");
     panel.closest(".dialog").classList.add("asking");

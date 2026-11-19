@@ -283,8 +283,8 @@
         <p>Tour the homes with your client and watch their reactions. Then they choose one, or none. If they buy, you earn a <b>2.5% commission</b>, plus bonuses for speed and 5-star reviews.</p>
         <h3>Multiplayer 🎉</h3>
         <ul>
-          <li><b>Rival Agents:</b> everyone gets the same client and races to present the best homes. The client buys from whoever brings the best match; if two agents show the same house, the one who submitted first wins.</li>
-          <li><b>Team Brokerage:</b> co-op. Share one shortlist and one set of questions, and split the commission.</li>
+          <li><b>🤝 Work Together:</b> one team. Questions and answers are shared, house picks sync for everyone, and you split the commission.</li>
+          <li><b>🥊 Rivals:</b> everyone meets the same client, but your questions, answers and picks stay private. The client buys from whoever brings the best home; if two agents show the same house, the one who submitted first wins.</li>
           <li>Click <b>Host a Lobby</b> to get a 5-character code, then send it to friends so they can <b>Join</b>. Everyone needs this game open in their browser (see README for easy hosting).</li>
         </ul>
         <h3>Brief legend</h3>
@@ -299,10 +299,17 @@
   // Lobby
   // ==========================================================================
   UI.lobby = {};
-  const MODE_DESC = {
-    versus: "Everyone gets the same client and races to find the best homes. The client buys from whoever brings the best match (earliest submission wins ties).",
-    coop: "Work together! One shared shortlist of 3 homes, shared questions, and a shared commission.",
-  };
+  // the two multiplayer modes, shown as big cards so it's obvious what each one does
+  const MODES = [
+    ["coop", "🤝", "Work Together", ["Everyone shares the same questions and answers", "House picks sync across the whole team", "Present together and split the commission"]],
+    ["versus", "🥊", "Rivals", ["Your questions and answers stay private", "Your house picks stay private", "The client buys from whoever brings the best home"]],
+  ];
+  UI.modeName = (m) => (m === "coop" ? "Work Together" : "Rivals");
+  function modeCards(cur, host) {
+    return `<div class="opt"><label class="field">Game mode</label><div class="mode-cards">${MODES.map(([k, icon, name, pts]) => `<button type="button" class="mode-card ${cur === k ? "on" : ""}" data-mode="${k}" ${host ? "" : "disabled"} aria-pressed="${cur === k}">
+      <div class="mc-head"><span class="mc-icon">${icon}</span><b>${name}</b>${cur === k ? `<span class="mc-check">✓</span>` : ""}</div>
+      <ul>${pts.map((p) => `<li>${p}</li>`).join("")}</ul></button>`).join("")}</div></div>`;
+  }
   UI.lobby.render = function () {
     const g = G();
     const el = $("#screen-lobby");
@@ -344,8 +351,7 @@
     // settings
     const s = g.lobby.settings;
     const sEl = el.querySelector("[data-settings]");
-    sEl.innerHTML = `${segOpt("Mode", "gameMode", [["versus", "🥊 Rival Agents"], ["coop", "🤝 Team Brokerage"]], s.gameMode)}
-      <div class="muted small" style="margin-top:-6px">${MODE_DESC[s.gameMode]}</div>
+    sEl.innerHTML = `${modeCards(s.gameMode, host)}
       ${segOpt("Difficulty", "diff", [["easy", "Easy"], ["normal", "Normal"], ["hard", "Hard"]], s.diff)}
       <div class="opt"><label class="field">City</label><select class="select" data-k="city" ${host ? "" : "disabled"}>${cityOptions(s.city)}</select></div>
       ${segOpt("Rounds", "rounds", [[1, "1"], [3, "3"], [5, "5"], [8, "8"]], s.rounds)}
@@ -353,6 +359,7 @@
     if (host) {
       const st = Object.assign({}, s);
       bindSegs(sEl, st, (k, v) => g.updateSettings({ [k]: v }));
+      HH.$$("[data-mode]", sEl).forEach((b) => b.addEventListener("click", () => { if (s.gameMode === b.dataset.mode) return; HH.sfx("click"); g.updateSettings({ gameMode: b.dataset.mode }); }));
       sEl.querySelector("[data-k=city]").addEventListener("change", (e) => g.updateSettings({ city: e.target.value }));
     } else HH.$$("[data-seg]", sEl).forEach((x) => { x.classList.add("disabled"); x.style.opacity = ".75"; });
     // actions

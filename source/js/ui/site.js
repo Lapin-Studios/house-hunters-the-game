@@ -570,7 +570,8 @@
     } else {
       action = g.submitted ? `<button class="btn btn-block" disabled>✅ Picks submitted</button>` : `<button class="btn btn-primary btn-block btn-lg" data-present ${g.picks.length ? "" : "disabled"}>🚗 Present to client ▸</button>`;
     }
-    el.innerHTML = `<h4>⭐ ${coop ? "Team picks" : "Client picks"} <span class="muted small" style="font-family:var(--ui)">(${g.picks.length}/3)</span></h4><div class="slots">${slots}</div>${action}`;
+    const tag = coop ? `<span class="sync-tag" title="Every teammate sees and can change these picks">🔄 Synced with team</span>` : g.mode !== "solo" ? `<span class="sync-tag priv" title="Rivals can't see your picks">🔒 Private</span>` : "";
+    el.innerHTML = `<h4>⭐ ${coop ? "Team picks" : "Client picks"} <span class="muted small" style="font-family:var(--ui)">(${g.picks.length}/3)</span>${tag}</h4><div class="slots">${slots}</div>${action}`;
     HH.$$("[data-open-slot]", el).forEach((b) => b.addEventListener("click", () => openDetail(b.dataset.openSlot)));
     HH.$$("[data-up]", el).forEach((b) => b.addEventListener("click", () => g.movePick(b.dataset.up, -1)));
     HH.$$("[data-rm]", el).forEach((b) => b.addEventListener("click", () => g.togglePick(b.dataset.rm)));

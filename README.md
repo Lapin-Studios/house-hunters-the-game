@@ -57,9 +57,9 @@ One new client every day, and **everyone gets the same one** (same city, homes a
 2. Friends click **Join a Lobby** and type the code. Up to 8 agents.
 3. The host picks the mode, difficulty, city, rounds and timer, then hits **Start**.
 
-**Modes**
-- **🥊 Rival Agents:** everyone meets the same client and races to present the best homes. The client buys from whoever brings the best match, and if two agents show the same house, whoever submitted first gets the sale.
-- **🤝 Team Brokerage:** co-op. One shared shortlist, shared questions, shared commission. Changing the list un-readies everyone.
+**Modes** (the host picks one in the lobby)
+- **🤝 Work Together:** one team. Questions and answers are shared with everyone, house picks sync across the whole team, and you split the commission. When the team's list changes, everyone has to click Ready again before presenting.
+- **🥊 Rivals:** everyone meets the same client, but your questions, answers and picks stay private. The client buys from whoever brings the best home, and if two agents show the same house, whoever submitted first gets the sale.
 
 Multiplayer is peer-to-peer (WebRTC via PeerJS), so **no game server is needed**. Every player just needs to open the game: either your online link (see *Putting it online* above, the easiest option) or their own copy of `index.html`. Everyone needs the *same version*; the game checks this when you join.
 

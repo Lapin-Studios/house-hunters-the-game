@@ -89,8 +89,8 @@
     { id: "streak", icon: "🔥", name: "Hot Streak", desc: "Close 3 deals in a row." },
     { id: "perfect", icon: "🎯", name: "Nailed It", desc: "Present the single best match on the market." },
     { id: "hard", icon: "🧗", name: "Tough Crowd", desc: "Close a deal on Hard." },
-    { id: "rival", icon: "🥇", name: "Top Dog", desc: "Win a Rival Agents game." },
-    { id: "team", icon: "🤝", name: "Team Player", desc: "Close a deal in Team Brokerage mode." },
+    { id: "rival", icon: "🥇", name: "Top Dog", desc: "Win a Rivals game." },
+    { id: "team", icon: "🤝", name: "Team Player", desc: "Close a deal in Work Together mode." },
     { id: "cities", icon: "🗺️", name: "Coast to Coast", desc: "Close a deal in all 8 cities." },
     { id: "trap", icon: "🪤", name: "Rookie Mistake", desc: "Present a home that's already under contract. Oops." },
   ];
@@ -114,7 +114,7 @@
     const players = multi ? G.lobby.players : [];
     return `<div class="hud">
       <div class="hud-logo">🏠 <span>House Hunters</span></div>
-      ${r ? `<div class="hud-round">Round <b>${r.num}</b> of ${r.total} · ${city ? esc(city.name + ", " + city.state) : ""} · ${HH.cap(r.diff)}${multi ? " · " + (r.gameMode === "coop" ? "Team Brokerage" : "Rival Agents") : ""}</div>` : ""}
+      ${r ? `<div class="hud-round">Round <b>${r.num}</b> of ${r.total} · ${city ? esc(city.name + ", " + city.state) : ""} · ${HH.cap(r.diff)}${multi ? " · " + UI.modeName(r.gameMode) : ""}</div>` : ""}
       <div class="spacer"></div>
       ${opts && opts.step ? UI.hudSteps(opts.step) : ""}
       <div class="spacer"></div>
